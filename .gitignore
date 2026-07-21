@@ -1,0 +1,49 @@
+# MeshStream Android Project
+
+# Android build artifacts
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# Build output
+build/
+*/build/
+.gradle/
+local.properties
+
+# IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+.DS_Store
+
+# NDK
+.externalNativeBuild/
+.cxx/
+
+# Keystore (never commit signing keys)
+*.jks
+*.keystore
+
+# Gradle wrapper jar (run `./gradlew wrapper` to regenerate)
+gradle/wrapper/gradle-wrapper.jar
+
+# Generated sources
+*/generated/
+*/generated-sources/
+
+# Profiling
+captures/
+*.hprof
+
+# Kotlin
+*.class
+
+# Test results
+*/test-results/
+*/reports/
+
+# Coverage
+*/jacoco/
