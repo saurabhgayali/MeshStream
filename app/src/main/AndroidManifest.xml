@@ -24,11 +24,11 @@
         NEARBY_WIFI_DEVICES was introduced in API 33 (Android 13) and replaces the
         coarse location requirement for Wi-Fi Direct peer discovery.
         On API 26-32, ACCESS_FINE_LOCATION above is used instead.
-        The app checks Build.VERSION.SDK_INT >= 33 before requesting this permission at runtime.
+        The app checks Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU at runtime
+        before requesting this permission.
     -->
     <uses-permission
         android:name="android.permission.NEARBY_WIFI_DEVICES"
-        android:minSdkVersion="33"
         android:usesPermissionFlags="neverForLocation" />
 
     <!-- Bluetooth -->

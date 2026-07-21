@@ -34,8 +34,9 @@ class DatabaseProvider @Inject constructor(
             MeshStreamDatabase::class.java,
             DATABASE_NAME,
         )
-            // TODO: Replace with proper incremental migrations before v1.0 release (issue #1).
-            // Destructive migration is only acceptable during early development.
+            // TODO: Replace with proper incremental migrations before v1.0 release.
+            // Destructive migration is only acceptable during early development;
+            // tracked in the project issue tracker once established.
             .fallbackToDestructiveMigration()
             .build()
     }
