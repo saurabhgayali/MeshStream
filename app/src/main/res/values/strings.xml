@@ -1,0 +1,5 @@
+
+<resources>
+    <string name="app_name">MeshStream</string>
+    <string name="status_heading">MeshStream core pipeline ready</string>
+</resources>

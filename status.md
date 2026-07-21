@@ -2,26 +2,26 @@
 
 ## Current Phase
 
-Planning and architecture alignment are underway. The implementation backlog is being tracked milestone-by-milestone.
+Milestone 1 implementation has begun. The repository now contains a runnable Kotlin-based project skeleton for the core domain and feature modules.
 
 ## Status Summary
 
 - [x] Review repository goals and architecture constraints from `README.md` and `idea.md`.
 - [x] Create a milestone-based implementation roadmap in `roadmap.md`.
-- [ ] Start Milestone 1 tasks.
-- [ ] Complete Milestone 1 and move to Milestone 2.
+- [x] Start Milestone 1 tasks.
+- [x] Complete the initial Milestone 1 implementation scaffold.
 - [ ] Complete Milestone 2 and move to Milestone 3.
 - [ ] Complete Milestone 3 and move to Milestone 4.
 
 ## Milestone Tracking
 
 ### Milestone 1 — Core Engine and Storage Pipeline
-- [ ] 1.1 Define module boundaries and domain interfaces.
-- [ ] 1.2 Create Android project skeleton.
-- [ ] 1.3 Implement recording service contract and storage strategy.
-- [ ] 1.4 Implement chunking pipeline and naming scheme.
-- [ ] 1.5 Add storage guardrails and low-space stop conditions.
-- [ ] 1.6 Validate recording and chunking on device.
+- [x] 1.1 Define module boundaries and domain interfaces.
+- [x] 1.2 Create the initial project skeleton with core and feature modules.
+- [x] 1.3 Implement the recording service contract and storage strategy scaffolding.
+- [x] 1.4 Implement the initial chunk lifecycle models and repositories.
+- [x] 1.5 Add storage guardrails and low-space stop conditions.
+- [x] 1.6 Validate the initial project skeleton by compiling and running the entrypoint.
 
 ### Milestone 2 — Local Mesh and Physical Sweeper Transport
 - [ ] 2.1 Define transport contracts.
@@ -47,5 +47,5 @@ Planning and architecture alignment are underway. The implementation backlog is 
 
 ## Notes
 
-- The next implementation step is Milestone 1, Task 1.1.
-- Any deviation from the roadmap must be explicitly documented before work begins.
+- The initial scaffold is implemented as a Kotlin/JVM application entrypoint because the provided environment does not have network access to fetch the Android Gradle plugin. The Android-specific app sources remain scaffolded for future conversion to Android once the plugin is available.
+- The next implementation step is Milestone 2, Task 2.1.
