@@ -1,11 +1,16 @@
 
 # MeshStream
 
+
+
 > **Resilient, Off-Grid Video Streaming & Relay Infrastructure for Field Journalism in Radio-Denied Environments.**
 
 MeshStream is an Android-first mobile architecture designed to capture, slice, and transport high-fidelity journalistic video out of heavily jammed, network-restricted, or protest environments. 
 
 By combining continuous local recording, intelligent background chunking, physical store-and-forward data muling, and peer-to-peer Wi-Fi mesh routing, MeshStream ensures that truth reaches the outside world even under total cellular and internet blackouts.
+
+<img width="1640" height="664" alt="banner" src="https://github.com/user-attachments/assets/e020bf9a-3499-4a05-b50b-14e8b5b9cf46" />
+
 
 ---
 
