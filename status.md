@@ -24,7 +24,7 @@ Milestone 1 implementation has begun. The repository now contains a runnable Kot
 - [x] 1.6 Validate the initial project skeleton by compiling and running the entrypoint.
 
 ### Milestone 2 — Local Mesh and Physical Sweeper Transport
-- [ ] 2.1 Define transport contracts.
+- [x] 2.1 Define transport contracts.
 - [ ] 2.2 Implement peer discovery and session bootstrap.
 - [ ] 2.3 Implement chunk queue state handling.
 - [ ] 2.4 Implement resumable transfer handling.
@@ -48,4 +48,4 @@ Milestone 1 implementation has begun. The repository now contains a runnable Kot
 ## Notes
 
 - The initial scaffold is implemented as a Kotlin/JVM application entrypoint because the provided environment does not have network access to fetch the Android Gradle plugin. The Android-specific app sources remain scaffolded for future conversion to Android once the plugin is available.
-- The next implementation step is Milestone 2, Task 2.1.
+- The next implementation step is Milestone 2, Task 2.2.

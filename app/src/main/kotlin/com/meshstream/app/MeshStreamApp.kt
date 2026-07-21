@@ -7,13 +7,15 @@ package com.meshstream.app
 import com.meshstream.core.domain.ChunkRecord
 import com.meshstream.core.domain.ChunkRepository
 import com.meshstream.core.domain.ChunkStatus
+import com.meshstream.core.domain.ChunkTransferOffer
+import com.meshstream.core.domain.ChunkTransferRequest
+import com.meshstream.core.domain.PeerNode
 import com.meshstream.core.domain.RecordingSession
 import com.meshstream.core.domain.SessionRepository
 import com.meshstream.core.domain.StorageFootprintCalculator
+import com.meshstream.core.domain.TransportCapability
 import com.meshstream.crypto.SessionKeyManager
 import com.meshstream.mesh.ChunkTransportCoordinator
-import com.meshstream.recorder.RecordingServiceContract
-import com.meshstream.recorder.RecordingStatus
 import com.meshstream.relay.RelayQueueManager
 import com.meshstream.storage.InMemoryChunkRepository
 import com.meshstream.storage.InMemorySessionRepository
@@ -46,6 +48,30 @@ fun main() {
     )
     chunkRepository.save(chunk)
 
+    transportCoordinator.registerPeer(
+        PeerNode(
+            id = "relay-1",
+            name = "relay-1",
+            endpoint = "mesh://relay-1",
+            capabilities = setOf(TransportCapability.CHUNK_TRANSFER, TransportCapability.RELAY_FORWARDING)
+        )
+    )
+    val transferOffer = ChunkTransferOffer(
+        sessionId = session.id,
+        chunkId = chunk.id,
+        offeredBy = "relay-1",
+        sizeBytes = 2_048L,
+        checksum = "sha256:demo"
+    )
+    val transferRequest = ChunkTransferRequest(
+        sessionId = session.id,
+        chunkId = chunk.id,
+        requestedBy = session.sourceDeviceId,
+        requestedFrom = "relay-1"
+    )
+    val offerAck = transportCoordinator.offerChunk(transferOffer)
+    val requestAck = transportCoordinator.requestChunk(transferRequest)
+
     val maxDurationSeconds = calculator.calculateMaxRecordingDuration(
         freeStorageBytes = 12_000_000_000L,
         videoBitrateBps = 12_000_000L
@@ -56,7 +82,9 @@ fun main() {
         "Chunks: ${chunkRepository.list().size}",
         "Max recording duration: ${maxDurationSeconds}s",
         "Session key: ${keyManager.createSessionKey(session.id)}",
-        "Transport: ${transportCoordinator.describeRoute("relay-1")}",
+        "Peers discovered: ${transportCoordinator.discoverPeers().size}",
+        "Transfer offer accepted: ${offerAck.accepted}",
+        "Transfer request accepted: ${requestAck.accepted}",
         "Relay queue: ${relayQueueManager.queueLimit("mesh")}"
     )
 
