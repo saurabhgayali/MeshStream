@@ -3,6 +3,7 @@ package com.meshstream.core.usecase
 import com.meshstream.core.model.ChunkStatus
 import com.meshstream.core.model.VideoChunk
 import com.meshstream.core.repository.ChunkRepository
+import kotlinx.coroutines.flow.first
 
 /**
  * Identifies [VideoChunk]s that have been delivered and schedules their secure deletion.
@@ -27,10 +28,8 @@ class VerifyAndDeleteUseCase(
      * and proceeds to remove the database record.
      */
     suspend fun deleteDeliveredChunks() {
-        val delivered = chunkRepository.observeByStatus(ChunkStatus.DELIVERED)
-        // Collect a snapshot to avoid modifying the flow mid-iteration.
-        val snapshot = mutableListOf<VideoChunk>()
-        delivered.collect { snapshot.addAll(it) }
+        // Use .first() to get a single snapshot from the flow without hanging on a hot flow.
+        val snapshot = chunkRepository.observeByStatus(ChunkStatus.DELIVERED).first()
 
         for (chunk in snapshot) {
             secureDeleter.delete(chunk)

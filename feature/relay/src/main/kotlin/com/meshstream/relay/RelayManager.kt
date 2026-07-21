@@ -127,16 +127,13 @@ class RelayManager @Inject constructor(
 
     /**
      * Picks the best available [MeshTransport] for communicating with [peer].
-     * Returns null if no suitable transport is available.
+     * Prefers a transport whose [MeshTransport.transportType] matches the peer's
+     * last-known transport; falls back to any available transport.
+     *
+     * Returns null if no transport is available.
      */
     private fun selectTransport(peer: NodeInfo): MeshTransport? =
-        transports
-            .filter { it.isAvailable }
-            .firstOrNull { transport ->
-                // Match transport type to peer's last-known transport.
-                transport::class.simpleName?.lowercase()
-                    ?.contains(peer.transport.name.lowercase().split("_").first()) == true
-            }
+        transports.firstOrNull { it.isAvailable && it.transportType == peer.transport }
             ?: transports.firstOrNull { it.isAvailable }
 
     companion object {

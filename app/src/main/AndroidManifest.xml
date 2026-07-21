@@ -18,8 +18,17 @@
     <!-- Wi-Fi Direct -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- ACCESS_FINE_LOCATION is required for Wi-Fi Direct on API 26–32 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES"
+    <!--
+        NEARBY_WIFI_DEVICES was introduced in API 33 (Android 13) and replaces the
+        coarse location requirement for Wi-Fi Direct peer discovery.
+        On API 26-32, ACCESS_FINE_LOCATION above is used instead.
+        The app checks Build.VERSION.SDK_INT >= 33 before requesting this permission at runtime.
+    -->
+    <uses-permission
+        android:name="android.permission.NEARBY_WIFI_DEVICES"
+        android:minSdkVersion="33"
         android:usesPermissionFlags="neverForLocation" />
 
     <!-- Bluetooth -->

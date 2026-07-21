@@ -89,19 +89,28 @@ class RoomChunkStore @Inject constructor(
 
     /**
      * Overwrites [file] with cryptographically random bytes of the same size.
+     * Writes in [OVERWRITE_BUFFER_SIZE] blocks to bound peak memory usage.
      * This is a best-effort measure; the OS may still have the original data in
      * write buffers or journaling structures.
      */
     private fun overwriteWithRandom(file: File) {
-        val randomBytes = ByteArray(file.length().coerceAtMost(MAX_OVERWRITE_BYTES).toInt())
-        secureRandom.nextBytes(randomBytes)
-        file.writeBytes(randomBytes)
+        val buffer = ByteArray(OVERWRITE_BUFFER_SIZE)
+        val remaining = file.length()
+        file.outputStream().use { out ->
+            var bytesLeft = remaining
+            while (bytesLeft > 0) {
+                val toWrite = minOf(bytesLeft, OVERWRITE_BUFFER_SIZE.toLong()).toInt()
+                secureRandom.nextBytes(buffer)
+                out.write(buffer, 0, toWrite)
+                bytesLeft -= toWrite
+            }
+        }
     }
 
     companion object {
         private const val CHUNKS_DIR = "chunks"
 
-        /** Overwrite at most this many bytes to bound memory usage on large files. */
-        private const val MAX_OVERWRITE_BYTES = 16 * 1024 * 1024L // 16 MB
+        /** Buffer size for each random-overwrite pass; keeps peak memory usage under 1 MB. */
+        private const val OVERWRITE_BUFFER_SIZE = 1 * 1024 * 1024 // 1 MB
     }
 }

@@ -56,6 +56,12 @@ interface MeshTransport {
     val isAvailable: Boolean
 
     /**
+     * The [Transport] type this implementation handles.
+     * Used by [com.meshstream.relay.RelayManager] to match transports to peer capabilities.
+     */
+    val transportType: com.meshstream.core.model.Transport
+
+    /**
      * Shuts down this transport, releasing all resources. After calling [shutdown],
      * the transport must not be used again.
      */
